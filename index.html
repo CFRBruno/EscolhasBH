@@ -6,7 +6,7 @@
 <title>Sessão a Dois – o que vamos assistir hoje?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Lilita+One&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#190e1d;
@@ -208,22 +208,209 @@ input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px}
 .loader{height:6px;border-radius:99px;background:var(--bg2);overflow:hidden;margin-top:10px;display:none}
 .loader.on{display:block}
 .loader div{height:100%;width:0;background:linear-gradient(90deg,var(--curtain),var(--gold));transition:width .2s}
+/* Sugestão */
+.sg{max-width:760px;margin:0 auto}
+.sg-prog{display:flex;gap:6px;margin-bottom:18px}
+.sg-prog i{flex:1;height:5px;border-radius:99px;background:var(--line)}
+.sg-prog i.on{background:linear-gradient(90deg,var(--curtain),var(--gold))}
+.sg h2{font-size:clamp(26px,5vw,38px);font-weight:800;line-height:1.1}
+.sg .qsub{color:var(--muted);margin:8px 0 18px}
+.sg-opts{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:600px){.sg-opts{grid-template-columns:1fr 1fr}}
+.sg-opt{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;font-size:17px}
+.sg-opt small{color:var(--muted);font-size:13px}
+.sg-opt:hover{border-color:var(--gold)}
+.sg-opt.on{border-color:var(--gold);background:var(--panel2)}
+.sg-chips{display:flex;flex-wrap:wrap;gap:10px}
+.sg-chip{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:11px 18px;font-size:16px}
+.sg-chip:hover{border-color:var(--gold)}
+.sg-chip.on{background:var(--curtain);border-color:var(--curtain);color:#fff;font-weight:700}
+.sg-chip:disabled{opacity:.35;cursor:not-allowed}
+.sg-nav{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.sg-item{display:grid;grid-template-columns:96px 1fr;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
+@media(min-width:600px){.sg-item{grid-template-columns:120px 1fr}}
+.sg-p img{width:100%;border-radius:8px;display:block}
+.sg-b h3{font-size:20px;font-weight:800}
+.sg-b .sub{color:var(--muted);font-size:13px;margin:3px 0 6px}
+.sg-b .why{color:var(--gold);font-size:13.5px;margin:8px 0 0}
+.sg-b .tactions{margin-top:10px}
+.sg-b .tactions .btn{background:var(--panel2);border-color:var(--line);color:var(--text);padding:7px 10px;font-size:13px}
+.sg-b .tactions .btn.on{background:var(--curtain);border-color:var(--curtain);color:#fff}
+.sg-b .tactions .btn.primary{background:var(--gold);color:var(--ticket-ink);border-color:var(--gold)}
+.sg-wait{padding:50px 10px;text-align:center;color:var(--muted);font-family:var(--serif);font-size:20px}
+@media(max-width:520px){.nav button{min-width:0;flex:1;padding:8px 2px}}
+/* ===== Fluidez, animações, cursor e scroll ===== */
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;scrollbar-width:thin;scrollbar-color:var(--curtain) transparent}
+button,a,.card{touch-action:manipulation}
+body{background-image:none}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(900px 500px at 8% -10%, rgba(194,41,79,.28), transparent 60%),radial-gradient(800px 500px at 100% 0%, rgba(255,207,110,.10), transparent 60%)}
+
+/* Barra de rolagem personalizada */
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--curtain),var(--curtain2));border:3px solid transparent;background-clip:padding-box;border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--gold),var(--curtain));background-clip:padding-box}
+::-webkit-scrollbar-corner{background:transparent}
+
+/* Animações */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes sheetUp{from{opacity:0;transform:translateY(40px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes hubPulse{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.5),0 0 0 0 rgba(255,207,110,.5)}50%{box-shadow:0 4px 14px rgba(0,0,0,.5),0 0 0 12px rgba(255,207,110,0)}}
+@keyframes imgSafe{to{opacity:1}}
+.top{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.tab.on{animation:rise .45s cubic-bezier(.2,.8,.2,1) both}
+.filters.open{animation:rise .3s cubic-bezier(.2,.8,.2,1) both}
+.modal.on{animation:fadeIn .25s ease both}
+.modal.on .sheet{animation:sheetUp .42s cubic-bezier(.2,.9,.3,1) both}
+.toast.on{animation:toastIn .3s cubic-bezier(.2,.9,.3,1) both}
+.hub:not(:disabled){animation:hubPulse 2.4s ease-in-out infinite}
+.grid.enter .card{animation:cardIn .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 28ms)}
+.sg.sg-enter>*{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.sg.sg-enter>*:nth-child(2){animation-delay:.05s}
+.sg.sg-enter>*:nth-child(3){animation-delay:.1s}
+.sg.sg-enter>*:nth-child(4){animation-delay:.15s}
+.sg.sg-enter>*:nth-child(5){animation-delay:.2s}
+.sg.sg-enter>*:nth-child(6){animation-delay:.25s}
+.sg.sg-enter>*:nth-child(7){animation-delay:.3s}
+.sg.sg-enter>*:nth-child(8){animation-delay:.35s}
+
+/* Interações suaves */
+.poster{overflow:hidden}
+.poster img,.sg-p img,.ticket .tp img,.sheet .head img{opacity:0;transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);animation:imgSafe 0s 4s forwards}
+.poster img.ld,.sg-p img.ld,.ticket .tp img.ld,.sheet .head img.ld{opacity:1}
+.card{transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .25s}
+.card:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.card:hover .poster img{transform:scale(1.07)}
+.card:active{transform:translateY(-2px) scale(.99)}
+.btn,.chip,.seg button,.sg-opt,.sg-chip,.subtabs button,.nav button,.ftoggle{transition:transform .18s cubic-bezier(.2,.8,.2,1),background-color .25s,border-color .2s,color .2s,box-shadow .25s}
+.btn:hover,.sg-opt:hover,.sg-chip:hover{transform:translateY(-2px)}
+.btn:active,.chip:active,.sg-opt:active,.sg-chip:active,.nav button:active,.subtabs button:active{transform:scale(.96)}
+.btn.primary:hover{box-shadow:0 8px 20px rgba(255,207,110,.25)}
+.btn.rose:hover{box-shadow:0 8px 20px rgba(194,41,79,.35)}
+.sg-item{transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .2s}
+.sg-item:hover{transform:translateY(-2px);border-color:var(--line)}
+input[type=range]{transition:filter .2s}
+input[type=range]:hover{filter:drop-shadow(0 0 4px rgba(255,207,110,.5))}
+
+/* Cursor personalizado B❤H */
+#cur-dot,#cur-badge{position:fixed;left:0;top:0;pointer-events:none;z-index:99999;opacity:0;transition:opacity .25s}
+html.cur-on #cur-dot,html.cur-on #cur-badge{opacity:1}
+#cur-dot svg{display:block;margin:-2px 0 0 -2px;transform-origin:2px 2px;transition:transform .16s cubic-bezier(.2,.8,.2,1),filter .2s;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55))}
+html.cur-hover #cur-dot svg{transform:scale(1.15);filter:drop-shadow(0 0 8px rgba(255,207,110,.95)) drop-shadow(0 3px 5px rgba(0,0,0,.55))}
+html.cur-down #cur-dot svg{transform:scale(.88)}
+#cur-badge{display:flex;align-items:center;gap:3px;padding:4px 9px 4px;border-radius:999px;background:rgba(25,14,29,.9);border:1px solid var(--gold);color:var(--ticket);font:800 12px/1 var(--serif);letter-spacing:.02em;box-shadow:0 4px 14px rgba(0,0,0,.45);white-space:nowrap;transform-origin:0 0;will-change:transform}
+#cur-badge i{font-style:normal;color:var(--curtain);display:inline-block;animation:beat 1.4s ease-in-out infinite}
+html.cur-hover #cur-badge i{animation-duration:.65s}
+html.cur-hover #cur-badge{background:var(--curtain2);border-color:var(--ticket)}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.4)}30%{transform:scale(1)}45%{transform:scale(1.28)}}
+html.cur-fine,html.cur-fine *{cursor:none!important}
+@media(hover:none),(pointer:coarse){#cur-dot,#cur-badge{display:none}}
+
+/* ===== Banner B❤H (azul e rosa, cartunizado) ===== */
+.top{justify-content:flex-end;padding-top:14px}
+.banner-wrap{max-width:1280px;margin:0 auto;padding:16px 20px 0;animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.banner{position:relative;overflow:hidden;border-radius:28px;border:4px solid #1b1340;
+  background:linear-gradient(100deg,#2477ff 0%,#5c7cff 30%,#b36cff 62%,#ff6fae 100%);
+  box-shadow:0 8px 0 #1b1340,0 20px 44px rgba(0,0,0,.4);
+  display:flex;align-items:center;gap:clamp(14px,3.5vw,40px);padding:clamp(14px,3vw,26px) clamp(18px,4vw,44px);min-height:140px}
+.banner::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,.3) 2.2px,transparent 2.8px);background-size:18px 18px;
+  -webkit-mask-image:linear-gradient(90deg,#000,transparent 88%);mask-image:linear-gradient(90deg,#000,transparent 88%)}
+.banner::after{content:"";position:absolute;top:-40%;bottom:-40%;width:70px;left:-140px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:rotate(18deg);animation:bnShine 7s ease-in-out infinite}
+@keyframes bnShine{0%,55%{left:-140px}100%{left:115%}}
+.bn-logo{position:relative;z-index:1;display:flex;align-items:center;flex:none}
+.bn-b,.bn-h{position:relative;display:inline-block;font-family:"Lilita One","Arial Black",Impact,sans-serif;
+  font-size:clamp(64px,13vw,116px);line-height:.9;
+  -webkit-text-stroke:clamp(6px,1.1vw,10px) #1b1340;paint-order:stroke fill;
+  text-shadow:0 clamp(4px,.9vw,8px) 0 #1b1340}
+.bn-b{--r:-7deg;color:#46b0ff;animation:bob 3.2s ease-in-out infinite}
+.bn-h{--r:7deg;color:#ff6fb1;animation:bob 3.2s ease-in-out -1.6s infinite}
+.bn-b::after,.bn-h::after{content:"";position:absolute;left:15%;top:15%;width:20%;height:9%;border-radius:50%;background:rgba(255,255,255,.8);transform:rotate(-35deg)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-9px) rotate(calc(var(--r) * .55))}}
+.bn-heart{width:clamp(46px,9vw,80px);height:auto;margin:0 clamp(-8px,-.6vw,-3px);position:relative;z-index:2;
+  filter:drop-shadow(0 6px 0 #1b1340);animation:hb 1.3s ease-in-out infinite}
+@keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.18)}28%{transform:scale(1)}42%{transform:scale(1.12)}}
+.bn-text{position:relative;z-index:1;min-width:0;color:#fff}
+.bn-text h1{font-family:"Lilita One","Arial Black",Impact,sans-serif;font-weight:400;font-size:clamp(26px,5.4vw,52px);line-height:1;letter-spacing:.01em;
+  -webkit-text-stroke:clamp(5px,.8vw,7px) #1b1340;paint-order:stroke fill;text-shadow:0 4px 0 #1b1340}
+.bn-text p{margin:12px 0 0;font-weight:700;font-size:clamp(13px,2.2vw,18px);text-shadow:0 2px 0 rgba(27,19,64,.75)}
+.bn-star{position:absolute;z-index:1;color:#fff;text-shadow:0 2px 0 #1b1340;animation:twinkle 2.6s ease-in-out infinite;pointer-events:none}
+.bn-star.s1{right:7%;top:14%;font-size:30px}
+.bn-star.s2{right:17%;bottom:12%;font-size:20px;animation-delay:-.9s;color:#ffe6f1}
+.bn-star.s3{right:3%;bottom:20%;font-size:24px;animation-delay:-1.7s;color:#d6ecff}
+@keyframes twinkle{0%,100%{transform:scale(.8) rotate(0);opacity:.7}50%{transform:scale(1.25) rotate(18deg);opacity:1}}
+.banner:hover .bn-b{animation:bob 1s ease-in-out infinite}
+.banner:hover .bn-h{animation:bob 1s ease-in-out -.5s infinite}
+@media(max-width:560px){.banner{flex-direction:column;text-align:center;gap:10px;min-height:0}}
+
+/* ===== Hover mais vivo nos botões ===== */
+.btn{position:relative;overflow:hidden}
+a.btn{display:inline-block}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:55%;height:100%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-20deg);transition:left .7s cubic-bezier(.2,.8,.2,1)}
+.btn:hover::after{left:140%}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+.btn.primary:hover{box-shadow:0 10px 24px rgba(255,207,110,.35)}
+.btn.rose:hover{box-shadow:0 10px 24px rgba(194,41,79,.45)}
+.btn.ghost:hover{background:rgba(255,207,110,.1)}
+.btn:disabled:hover{transform:none}
+.btn:disabled:hover::after{left:-80%}
+.btn[data-mark]:hover,.btn[data-sg-mark]:hover{animation:wiggle .5s ease}
+@keyframes wiggle{0%,100%{transform:translateY(-3px) rotate(0)}25%{transform:translateY(-3px) rotate(-4deg)}75%{transform:translateY(-3px) rotate(4deg)}}
+.btn .ripple,.hub .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:rip .65s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+.nav .ic{display:inline-block}
+.nav button:hover{transform:translateY(-2px)}
+.nav button:hover .ic{animation:icBounce .55s ease}
+@keyframes icBounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-6px) rotate(-10deg)}70%{transform:translateY(1px) rotate(4deg)}}
+.chip:hover{transform:translateY(-2px) rotate(-1.5deg);border-color:var(--gold)}
+.sg-chip:hover{transform:translateY(-3px) rotate(-1.5deg)}
+.sg-opt:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.35)}
+.seg button:hover:not(.on){background:rgba(255,207,110,.12);color:var(--text)}
+.subtabs button:hover:not(.on){border-color:var(--gold);transform:translateY(-2px)}
+.ftoggle:hover{border-color:var(--gold);transform:translateY(-2px)}
+.hub{overflow:hidden}
+.hub:hover:not(:disabled){transform:translate(-50%,-50%) scale(1.08)}
+.hub:active:not(:disabled){transform:translate(-50%,-50%) scale(.94)}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="brand">
-    <h1>Sessão a Dois</h1>
-    <p>O que vamos assistir hoje? Catálogo da Netflix Brasil, notas e uma roleta para decidir.</p>
-    <div class="marquee" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="banner-wrap">
+  <div class="banner">
+    <div class="bn-logo" role="img" aria-label="B coração H">
+      <span class="bn-b">B</span>
+      <svg class="bn-heart" viewBox="0 0 64 58" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="bnHeart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3aa0ff"/><stop offset="1" stop-color="#ff5fa2"/></linearGradient></defs>
+        <path d="M32 55 C10 38 2 28 2 17 C2 8 9 2 17 2 C24 2 29 6 32 11 C35 6 40 2 47 2 C55 2 62 8 62 17 C62 28 54 38 32 55 Z" fill="url(#bnHeart)" stroke="#1b1340" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M13 15 C15 10 19 8 23 9" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".85"/>
+      </svg>
+      <span class="bn-h">H</span>
+    </div>
+    <div class="bn-text">
+      <h1>Sessão a Dois</h1>
+      <p>Bruno ❤ Helena • o que vamos assistir hoje?</p>
+    </div>
+    <span class="bn-star s1" aria-hidden="true">✦</span>
+    <span class="bn-star s2" aria-hidden="true">★</span>
+    <span class="bn-star s3" aria-hidden="true">✦</span>
   </div>
+</div>
+
+<header class="top">
   <div class="catinfo"><div id="catinfo">Catálogo ainda não carregado</div><div id="rated-info" style="margin-top:6px"></div></div>
 </header>
 
 <nav class="nav" id="nav">
   <button data-tab="explorar" class="on"><span class="ic">🎬</span>Explorar</button>
+  <button data-tab="sugestao"><span class="ic">✨</span>Sugestão</button>
   <button data-tab="roleta"><span class="ic">🎡</span>Roleta</button>
   <button data-tab="lista"><span class="ic">💞</span>Nossa lista</button>
   <button data-tab="config"><span class="ic">⚙️</span>Configurações</button>
@@ -254,6 +441,11 @@ input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px}
         <button class="btn more" id="e-more" style="display:none">Mostrar mais</button>
       </div>
     </div>
+  </section>
+
+  <!-- SUGESTÃO -->
+  <section class="tab" id="tab-sugestao">
+    <div class="sg" id="sg-root"></div>
   </section>
 
   <!-- ROLETA -->
@@ -350,6 +542,22 @@ input[type=checkbox]{accent-color:var(--gold);width:16px;height:16px}
   <div class="sheet" id="sheet"></div>
 </div>
 <div class="toast" id="toast"></div>
+<div id="cur-dot" aria-hidden="true">
+  <svg width="20" height="28" viewBox="0 0 24 34" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="curBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff6dc"/><stop offset=".45" stop-color="#ffcf6e"/><stop offset="1" stop-color="#c2294f"/>
+      </linearGradient>
+      <linearGradient id="curGloss" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="M2 2 V27 L8.5 21 L13.5 32 L18 30 L13 19.5 L22 19.5 Z" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="4.5" stroke-linejoin="round"/>
+    <path d="M2 2 V27 L8.5 21 L13.5 32 L18 30 L13 19.5 L22 19.5 Z" fill="url(#curBody)" stroke="#2b1730" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M4.6 7 V21 L8.2 18 Z" fill="url(#curGloss)"/>
+  </svg>
+</div>
+<div id="cur-badge" aria-hidden="true"><b>B</b><i>❤</i><b>H</b></div>
 
 <script>
 "use strict";
@@ -404,7 +612,7 @@ const S = {
   catTs: 0
 };
 let YB = { min: 1920, max: new Date().getFullYear() + 1 };
-const defaultF = (o = {}) => ({ q: "", type: "all", genres: new Set(), allGenres: false, yMin: YB.min, yMax: YB.max, tmdbMin: 0, imdbMin: 0, rtMin: 0, incUnrated: false, lang: "", scope: "all", hideSeen: true, ...o });
+const defaultF = (o = {}) => ({ q: "", type: "all", genres: new Set(), allGenres: false, yMin: YB.min, yMax: YB.max, tmdbMin: 0, imdbMin: 0, rtMin: 0, incUnrated: false, lang: "", scope: "all", hideSeen: true, only: null, ...o });
 let FE = defaultF(), FR = defaultF();
 const ST_ICON = { want: "♥", seen: "✓", hide: "✕" };
 
@@ -487,7 +695,10 @@ async function loadCatalog() {
     $("#k-save").disabled = $("#k-refresh").disabled = false;
   }
 }
-function setStatus(msg, cls = "") { const el = $("#k-status"); el.textContent = msg; el.className = "status " + cls; }
+function setStatus(msg, cls = "") {
+  const el = $("#k-status"); el.textContent = msg; el.className = "status " + cls;
+  const m = $("#e-loadmsg"); if (m) m.textContent = msg;
+}
 
 /* ---------- Notas (OMDb) ---------- */
 let persistT;
@@ -598,6 +809,7 @@ function applyFilters(F) {
   const fullYears = F.yMin <= YB.min && F.yMax >= YB.max;
   return S.items.filter(it => {
     if (F.type !== "all" && it.type !== F.type) return false;
+    if (F.only && !F.only.has(it.k)) return false;
     if (q && !(norm(it.title).includes(q) || norm(it.orig || "").includes(q))) return false;
     if (F.genres.size) {
       if (F.allGenres) { for (const g of F.genres) if (!it.genres.includes(g)) return false; }
@@ -677,9 +889,9 @@ function scoreBadges(it, r) {
   if (r && r.rt != null) h += `<span class="pill rt" title="Rotten Tomatoes">🍅 ${r.rt}%</span>`;
   return h;
 }
-function cardHTML(it) {
+function cardHTML(it, i = 0) {
   const r = S.ratings[it.k], st = S.list[it.k]?.s;
-  return `<article class="card" data-k="${it.k}" tabindex="0">
+  return `<article class="card" data-k="${it.k}" tabindex="0" style="--i:${Math.min(i, 14)}">
     <div class="poster">${it.poster ? `<img loading="lazy" src="${IMG}w342${it.poster}" alt="Pôster de ${esc(it.title)}">` : `<div class="noimg">${esc(it.title)}</div>`}
       <span class="tag">${it.type === "movie" ? "Filme" : "Série"}</span>
       ${st ? `<span class="st st-${st}">${ST_ICON[st]}</span>` : ""}</div>
@@ -720,9 +932,15 @@ function renderExplore(reset = true) {
   EX.list = sortItems(applyFilters(FE), $("#e-sort").value);
   $("#e-count").textContent = S.items.length ? `${EX.list.length.toLocaleString("pt-BR")} títulos` : "";
   const g = $("#e-grid");
-  if (!S.items.length) { g.innerHTML = `<div class="empty" style="grid-column:1/-1"><h3>Vamos começar</h3><p>Adicione suas chaves em Configurações para baixar o catálogo da Netflix Brasil.</p><button class="btn primary" onclick="showTab('config')">Ir para Configurações</button></div>`; $("#e-more").style.display = "none"; return; }
+  if (!S.items.length) {
+    g.innerHTML = S.tmdbKey
+      ? `<div class="empty" style="grid-column:1/-1"><h3>Baixando o catálogo da Netflix Brasil…</h3><p id="e-loadmsg">Na primeira vez leva alguns minutos. Depois fica salvo neste aparelho.</p></div>`
+      : `<div class="empty" style="grid-column:1/-1"><h3>Vamos começar</h3><p>Adicione suas chaves em Configurações para baixar o catálogo da Netflix Brasil.</p><button class="btn primary" onclick="showTab('config')">Ir para Configurações</button></div>`;
+    $("#e-more").style.display = "none"; return;
+  }
   if (!EX.list.length) { g.innerHTML = `<div class="empty" style="grid-column:1/-1"><h3>Nada por aqui</h3><p>Nenhum título bate com esses filtros. Tente afrouxar a nota ou o ano.</p></div>`; $("#e-more").style.display = "none"; return; }
-  g.innerHTML = EX.list.slice(0, EX.shown).map(cardHTML).join("");
+  g.innerHTML = EX.list.slice(0, EX.shown).map((it, i) => cardHTML(it, i)).join("");
+  if (reset) playEnter(g); else g.classList.remove("enter");
   $("#e-more").style.display = EX.list.length > EX.shown ? "block" : "none";
 }
 
@@ -789,7 +1007,7 @@ const W = { n: 8, items: [], rot: 0, spinning: false, winner: null };
 let RP = [];
 function updateRoulettePool(resample = true) {
   RP = applyFilters(FR);
-  $("#r-count").textContent = S.items.length ? `${RP.length.toLocaleString("pt-BR")} opções no sorteio` : "";
+  $("#r-count").textContent = S.items.length ? `${RP.length.toLocaleString("pt-BR")} opções no sorteio${FR.only ? " (vindas da sugestão)" : ""}` : "";
   const cand = applyFilters({ ...FR, imdbMin: 0, rtMin: 0, incUnrated: true });
   const rated = cand.filter(i => S.ratings[i.k]).length;
   $("#r-rated").textContent = S.omdbKey ? `${rated} de ${cand.length} títulos do filtro com nota IMDb/RT buscada` : "Sem chave do OMDb: notas IMDb/RT indisponíveis";
@@ -871,6 +1089,8 @@ function showResult(it) {
   const box = $("#r-result");
   box.innerHTML = resultHTML(it);
   box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  const wc = $("#wheel").getBoundingClientRect();
+  burst(wc.left + wc.width / 2, wc.top + wc.height / 2);
   getRatings(it).then(r => { if (r && W.winner === it) box.innerHTML = resultHTML(it); }).catch(() => {});
 }
 $("#r-result").addEventListener("click", e => {
@@ -893,10 +1113,191 @@ function renderList() {
     const msg = { want: "Marque com ♥ os títulos que despertam interesse. Eles aparecem aqui e podem entrar na roleta.", seen: "Quando vocês assistirem algo, marque com ✓ para não aparecer de novo no sorteio.", hide: "Títulos descartados com ✕ ficam escondidos do catálogo e da roleta." }[subTab];
     g.innerHTML = `<div class="empty" style="grid-column:1/-1"><h3>Lista vazia</h3><p>${msg}</p></div>`; return;
   }
-  g.innerHTML = entries.map(([k]) => cardHTML(itemByKey(k))).join("");
+  g.innerHTML = entries.map(([k], i) => cardHTML(itemByKey(k), i)).join("");
 }
-$("#l-sub").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; subTab = b.dataset.s; $$("#l-sub button").forEach(x => x.classList.toggle("on", x === b)); renderList(); });
+$("#l-sub").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; subTab = b.dataset.s; $$("#l-sub button").forEach(x => x.classList.toggle("on", x === b)); renderList(); playEnter($("#l-grid")); });
 $("#l-spin").addEventListener("click", () => { FR.scope = "want"; buildFilters($("#fr-root"), FR, onRouletteFilter); showTab("roleta"); updateRoulettePool(true); setTimeout(spin, 300); });
+
+/* ---------- Sugestão ---------- */
+const GRE = {
+  comedia: /comedi/, drama: /drama/, acao: /acao|action/, aventura: /aventura|adventure/,
+  suspense: /thriller|suspense/, crime: /crime/, misterio: /misterio|mystery/, terror: /terror|horror/,
+  ficcao: /ficcao|sci-?fi/, fantasia: /fantasi|fantasy|sci-?fi/, romance: /romanc/, animacao: /animac|animation/,
+  doc: /document/, familia: /famil|kids|infantil/, guerra: /guerra|war/, historia: /historia|history/, musica: /music/
+};
+const SG_GENRES = [["comedia", "Comédia"], ["drama", "Drama"], ["acao", "Ação"], ["aventura", "Aventura"], ["suspense", "Suspense"], ["crime", "Crime"], ["misterio", "Mistério"], ["terror", "Terror"], ["ficcao", "Ficção científica"], ["fantasia", "Fantasia"], ["romance", "Romance"], ["animacao", "Animação"], ["doc", "Documentário"], ["familia", "Família"]];
+const MOODS = [
+  { id: "leve", label: "Leve e divertido", sub: "comédia, família, animação", boost: ["comedia", "familia", "animacao"], avoid: ["terror", "crime", "guerra"] },
+  { id: "tenso", label: "Tenso, para prender a atenção", sub: "suspense, crime, mistério, terror", boost: ["suspense", "crime", "misterio", "terror"], avoid: [] },
+  { id: "emocao", label: "Emocionante, para se envolver", sub: "drama, romance, história, música", boost: ["drama", "romance", "historia", "musica"], avoid: ["terror"] },
+  { id: "acao", label: "Ação e adrenalina", sub: "ação, aventura, ficção científica", boost: ["acao", "aventura", "ficcao", "fantasia"], avoid: [] },
+  { id: "pensar", label: "Para pensar e se surpreender", sub: "mistério, ficção científica, documentário, história", boost: ["misterio", "ficcao", "doc", "historia"], avoid: [] },
+  { id: "any", label: "Tanto faz", sub: "", boost: [], avoid: [] }
+];
+const gHas = (it, id) => it.genres.some(g => GRE[id].test(norm(g)));
+const SG_FRESH = () => ({ type: "all", genres: new Set(), out: new Set(), era: "any", mood: "any" });
+const SG = { step: 0, ans: SG_FRESH(), queue: [], current: [], total: 0, note: "", loading: false, noise: new Map() };
+
+function sgQuestions() {
+  const cy = new Date().getFullYear();
+  return [
+    { key: "type", title: "Filme ou série?", kind: "single", opts: [{ id: "movie", label: "Filme" }, { id: "tv", label: "Série" }, { id: "all", label: "Tanto faz" }] },
+    { key: "genres", title: "Quais gêneros?", sub: "Marque quantos quiser. Sem marcar nada, vale qualquer gênero.", kind: "multi", opts: SG_GENRES.map(([id, label]) => ({ id, label })) },
+    { key: "out", title: "Algum gênero está fora?", sub: "Marque o que nenhum dos dois quer ver hoje.", kind: "multi", opts: SG_GENRES.map(([id, label]) => ({ id, label })) },
+    { key: "era", title: "De que época?", kind: "single", opts: [
+      { id: "new", label: `Lançamentos`, sub: `${cy - 3} em diante` },
+      { id: "mid", label: `Recentes`, sub: `2010 a ${cy - 4}` },
+      { id: "y2000", label: `Anos 2000`, sub: `2000 a 2009` },
+      { id: "old", label: `Clássicos`, sub: `antes de 2000` },
+      { id: "any", label: "Tanto faz" }] },
+    { key: "mood", title: "Qual clima querem?", sub: "Escolha o que mais combina com a noite de hoje.", kind: "single", opts: MOODS }
+  ];
+}
+function eraOk(it, e) {
+  if (e === "any") return true;
+  if (it.year == null) return false;
+  const cy = new Date().getFullYear();
+  if (e === "new") return it.year >= cy - 3;
+  if (e === "mid") return it.year >= 2010 && it.year <= cy - 4;
+  if (e === "y2000") return it.year >= 2000 && it.year <= 2009;
+  if (e === "old") return it.year < 2000;
+  return true;
+}
+function sgPool(relax) {
+  const a = SG.ans, junk = /talk|notici|news|novela|soap/;
+  return S.items.filter(it => {
+    if (a.type !== "all" && it.type !== a.type) return false;
+    const st = S.list[it.k]?.s; if (st === "seen" || st === "hide") return false;
+    if (it.tmdb != null && it.tmdb < 5) return false;
+    if (it.genres.some(g => junk.test(norm(g)))) return false;
+    if (!relax.includes("era") && !eraOk(it, a.era)) return false;
+    if (a.genres.size && !relax.includes("genres") && ![...a.genres].some(g => gHas(it, g))) return false;
+    if ([...a.out].some(g => gHas(it, g))) return false;
+    return true;
+  });
+}
+function sgScore(it, noise = 0) {
+  const a = SG.ans, mood = MOODS.find(m => m.id === a.mood);
+  const r = S.ratings[it.k];
+  const q = r && r.imdb != null ? r.imdb : (it.tmdb != null ? it.tmdb : 6.2);
+  let s = (q - 5.5) * 1.3 + Math.log10(it.pop + 1) * 0.5 + noise;
+  s += 1.5 * [...a.genres].filter(g => gHas(it, g)).length;
+  s += 2 * mood.boost.filter(g => gHas(it, g)).length;
+  s -= 3 * mood.avoid.filter(g => gHas(it, g)).length;
+  if (r && r.rt != null) s += (r.rt - 60) / 40;
+  return s;
+}
+async function sgRun() {
+  SG.step = 5; SG.loading = true; renderSg();
+  const relaxes = [[], ["era"], ["era", "genres"]];
+  let pool = [], used = [];
+  for (const rx of relaxes) {
+    const p = sgPool(rx);
+    if (p.length >= 5) { pool = p; used = rx; break; }
+    if (p.length > pool.length) { pool = p; used = rx; }
+  }
+  SG.noise = new Map(); pool.forEach(it => SG.noise.set(it.k, Math.random() * 0.8));
+  SG.total = pool.length;
+  SG.note = used.includes("genres") ? "Poucos títulos atendiam a tudo, então ignorei a época e os gêneros marcados." : used.includes("era") ? "Poucos títulos atendiam a tudo, então ignorei a época." : "";
+  SG.queue = pool.map(it => [it, sgScore(it, SG.noise.get(it.k))]).sort((x, y) => y[1] - x[1]).map(x => x[0]);
+  await sgNext();
+}
+async function sgNext() {
+  SG.loading = true; renderSg();
+  const win = SG.queue.splice(0, 12);
+  if (S.omdbKey) await Promise.allSettled(win.map(it => getRatings(it)));
+  const scored = win.map(it => [it, sgScore(it, SG.noise.get(it.k) || 0)]).sort((x, y) => y[1] - x[1]);
+  SG.current = scored.slice(0, 5).map(x => x[0]);
+  SG.queue.unshift(...scored.slice(5).map(x => x[0]));
+  SG.loading = false; renderSg(); updateRatedInfo();
+}
+function sgWhy(it) {
+  const a = SG.ans, parts = [];
+  const m = [...a.genres].filter(g => gHas(it, g)).map(g => SG_GENRES.find(x => x[0] === g)[1]);
+  if (m.length) parts.push("gênero: " + m.join(" e "));
+  const mood = MOODS.find(x => x.id === a.mood);
+  if (a.mood !== "any" && mood.boost.some(g => gHas(it, g))) parts.push("clima: " + mood.label.split(",")[0].toLowerCase());
+  const r = S.ratings[it.k];
+  if (r && r.imdb != null) parts.push("IMDb " + r.imdb.toFixed(1).replace(".", ","));
+  else if (it.tmdb != null) parts.push("nota TMDB " + it.tmdb.toFixed(1).replace(".", ","));
+  if (r && r.rt != null) parts.push("Rotten Tomatoes " + r.rt + "%");
+  if (it.year) parts.push("de " + it.year);
+  return parts.join(" • ");
+}
+function sgItemHTML(it) {
+  const cur = S.list[it.k]?.s;
+  const mk = [["want", "♥ Quero ver"], ["seen", "✓ Já vimos"], ["hide", "✕ Descartar"]].map(([s, l]) => `<button type="button" class="btn ${cur === s ? "on" : ""}" data-sg-mark="${it.k}|${s}">${l}</button>`).join("");
+  return `<div class="sg-item"><div class="sg-p">${it.poster ? `<img src="${IMG}w342${it.poster}" alt="Pôster de ${esc(it.title)}">` : ""}</div>
+    <div class="sg-b"><h3>${esc(it.title)}</h3>
+      <div class="sub">${it.type === "movie" ? "Filme" : "Série"} • ${it.year ?? "s/ ano"}${it.genres.length ? " • " + esc(it.genres.slice(0, 3).join(", ")) : ""}</div>
+      <div class="scores">${scoreBadges(it, S.ratings[it.k])}</div>
+      <p class="why">${esc(sgWhy(it))}</p>
+      <div class="tactions"><button type="button" class="btn primary" data-sg-det="${it.k}">Detalhes e trailer</button>${mk}</div></div></div>`;
+}
+function renderSg() {
+  const root = $("#sg-root"); if (!root) return;
+  renderSgInner(root);
+  const key = SG.step + ":" + (SG.loading ? "l" : "r");
+  if (key !== SG.lastKey) { root.classList.remove("sg-enter"); void root.offsetWidth; root.classList.add("sg-enter"); SG.lastKey = key; }
+}
+function renderSgInner(root) {
+  if (!S.items.length) { root.innerHTML = `<div class="empty"><h3>Catálogo ainda não carregado</h3><p>Aguarde o catálogo ser baixado para receber sugestões.</p></div>`; return; }
+  if (SG.step < 5) {
+    const q = sgQuestions()[SG.step], a = SG.ans;
+    const prog = `<div class="sg-prog">${[0, 1, 2, 3, 4].map(i => `<i class="${i <= SG.step ? "on" : ""}"></i>`).join("")}</div>`;
+    let opts, next = "";
+    if (q.kind === "single") {
+      opts = `<div class="sg-opts">${q.opts.map(o => `<button type="button" class="sg-opt ${a[q.key] === o.id ? "on" : ""}" data-sg-pick="${o.id}"><b>${esc(o.label)}</b>${o.sub ? `<small>${esc(o.sub)}</small>` : ""}</button>`).join("")}</div>`;
+    } else {
+      opts = `<div class="sg-chips">${q.opts.map(o => `<button type="button" class="sg-chip ${a[q.key].has(o.id) ? "on" : ""}" data-sg-tog="${o.id}" ${q.key === "out" && a.genres.has(o.id) ? "disabled" : ""}>${esc(o.label)}</button>`).join("")}</div>`;
+      const label = a[q.key].size ? "Continuar" : (q.key === "genres" ? "Qualquer gênero, continuar" : "Nenhum, continuar");
+      next = `<button type="button" class="btn primary" data-sg-next>${label}</button>`;
+    }
+    root.innerHTML = `${prog}<h2>${esc(q.title)}</h2>${q.sub ? `<p class="qsub">${esc(q.sub)}</p>` : `<div style="height:18px"></div>`}${opts}
+      <div class="sg-nav">${SG.step > 0 ? `<button type="button" class="btn ghost" data-sg-back>Voltar</button>` : ""}${next}</div>`;
+    return;
+  }
+  if (SG.loading) { root.innerHTML = `<div class="sg-wait">Procurando e conferindo as notas…</div>`; return; }
+  if (!SG.current.length) {
+    root.innerHTML = `<h2>Nada encontrado</h2><p class="qsub">Nenhum título bateu com essas respostas. Tente marcar menos gêneros ou outra época.</p><div class="sg-nav"><button type="button" class="btn primary" data-sg-restart>Refazer as perguntas</button></div>`; return;
+  }
+  root.innerHTML = `<h2>Sugestões para hoje</h2>
+    <p class="qsub">${SG.total.toLocaleString("pt-BR")} títulos bateram com as respostas. ${esc(SG.note)}</p>
+    ${SG.current.map(sgItemHTML).join("")}
+    <div class="sg-nav">
+      <button type="button" class="btn primary" data-sg-more ${SG.queue.length ? "" : "disabled"}>Ver outras opções</button>
+      <button type="button" class="btn rose" data-sg-wheel>Mandar para a roleta</button>
+      <button type="button" class="btn ghost" data-sg-restart>Refazer as perguntas</button>
+    </div>`;
+}
+$("#sg-root").addEventListener("click", e => {
+  const pick = e.target.closest("[data-sg-pick]");
+  if (pick) {
+    const q = sgQuestions()[SG.step]; SG.ans[q.key] = pick.dataset.sgPick;
+    if (SG.step === 4) sgRun(); else { SG.step++; renderSg(); }
+    return;
+  }
+  const tog = e.target.closest("[data-sg-tog]");
+  if (tog) {
+    const q = sgQuestions()[SG.step], set = SG.ans[q.key], id = tog.dataset.sgTog;
+    if (set.has(id)) set.delete(id); else { set.add(id); if (q.key === "genres") SG.ans.out.delete(id); }
+    renderSg(); return;
+  }
+  if (e.target.closest("[data-sg-next]")) { SG.step++; renderSg(); return; }
+  if (e.target.closest("[data-sg-back]")) { SG.step = Math.max(0, SG.step - 1); renderSg(); return; }
+  if (e.target.closest("[data-sg-more]")) { sgNext(); return; }
+  if (e.target.closest("[data-sg-restart]")) { SG.ans = SG_FRESH(); SG.step = 0; renderSg(); return; }
+  if (e.target.closest("[data-sg-wheel]")) {
+    const keys = [...SG.current, ...SG.queue.slice(0, 7)].map(i => i.k);
+    FR = defaultF({ only: new Set(keys) });
+    buildFilters($("#fr-root"), FR, onRouletteFilter);
+    showTab("roleta"); updateRoulettePool(true);
+    return;
+  }
+  const d = e.target.closest("[data-sg-det]"); if (d) { openModal(itemByKey(d.dataset.sgDet)); return; }
+  const m = e.target.closest("[data-sg-mark]");
+  if (m) { const [k, s] = m.dataset.sgMark.split("|"); setMark(itemByKey(k), s); renderSg(); }
+});
 
 /* ---------- Navegação / atualização ---------- */
 function showTab(name) {
@@ -904,7 +1305,9 @@ function showTab(name) {
   $$("#nav button").forEach(b => b.classList.toggle("on", b.dataset.tab === name));
   window.scrollTo({ top: 0 });
   if (name === "roleta") requestAnimationFrame(drawWheel);
-  if (name === "lista") renderList();
+  if (name === "lista") { renderList(); playEnter($("#l-grid")); }
+  if (name === "sugestao") renderSg();
+  if (name === "explorar") playEnter($("#e-grid"));
 }
 $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if (b) showTab(b.dataset.tab); });
 function refreshAll(resample = false) {
@@ -978,6 +1381,69 @@ $("#b-file").addEventListener("change", async e => {
 });
 $("#b-clear").addEventListener("click", async () => { S.ratings = {}; await idb.set("ratings", {}); refreshAll(true); toast("Notas em cache apagadas."); });
 
+/* ---------- Fluidez: cursor, imagens e efeitos ---------- */
+function playEnter(el) { if (!el) return; el.classList.remove("enter"); void el.offsetWidth; el.classList.add("enter"); }
+document.addEventListener("load", e => { if (e.target.tagName === "IMG") e.target.classList.add("ld"); }, true);
+document.addEventListener("error", e => { if (e.target.tagName === "IMG") e.target.classList.add("ld"); }, true);
+
+function burst(x, y) {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const sy = ["❤", "✨", "🎬", "❤", "🍿"];
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement("span");
+    s.textContent = sy[i % sy.length];
+    s.style.cssText = `position:fixed;left:${x}px;top:${y}px;z-index:9998;pointer-events:none;font-size:${14 + Math.random() * 14}px`;
+    document.body.appendChild(s);
+    const ang = Math.random() * Math.PI * 2, d = 90 + Math.random() * 150;
+    s.animate([
+      { transform: "translate(-50%,-50%) scale(.4)", opacity: 1 },
+      { transform: `translate(calc(-50% + ${Math.cos(ang) * d}px), calc(-50% + ${Math.sin(ang) * d - 60}px)) scale(1.1) rotate(${(Math.random() - .5) * 120}deg)`, opacity: 0 }
+    ], { duration: 900 + Math.random() * 500, easing: "cubic-bezier(.2,.8,.3,1)" }).onfinish = () => s.remove();
+  }
+}
+
+(function customCursor() {
+  const dot = $("#cur-dot"), badge = $("#cur-badge");
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) { dot.remove(); badge.remove(); return; }
+  const root = document.documentElement;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.classList.add("cur-fine");
+  let mx = -100, my = -100, bx = -100, by = -100, s = 1, ts = 1, seen = false;
+  const HOVER = "a,button,input,select,textarea,label,.card,.chip,summary,[role=button]";
+  const baseScale = () => root.classList.contains("cur-hover") ? 1.22 : 1;
+  addEventListener("mousemove", e => {
+    mx = e.clientX; my = e.clientY;
+    if (!seen) { seen = true; bx = mx; by = my; root.classList.add("cur-on"); }
+    const h = e.target.closest ? e.target.closest(HOVER) : null;
+    const on = !!(h && !h.disabled);
+    root.classList.toggle("cur-hover", on);
+    ts = on ? 1.22 : 1;
+    dot.style.transform = `translate3d(${mx}px,${my}px,0)`;
+  }, { passive: true });
+  addEventListener("mousedown", () => { ts = .86; root.classList.add("cur-down"); });
+  addEventListener("mouseup", () => { ts = baseScale(); root.classList.remove("cur-down"); });
+  document.documentElement.addEventListener("mouseleave", () => root.classList.remove("cur-on"));
+  document.documentElement.addEventListener("mouseenter", () => { if (seen) root.classList.add("cur-on"); });
+  (function loop() {
+    const k = reduce ? 1 : 0.2;
+    bx += (mx - bx) * k; by += (my - by) * k; s += (ts - s) * (reduce ? 1 : 0.22);
+    const ox = bx > innerWidth - 110 ? -80 : 20, oy = by > innerHeight - 56 ? -34 : 22;
+    badge.style.transform = `translate3d(${bx + ox}px,${by + oy}px,0) scale(${s})`;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+document.addEventListener("pointerdown", e => {
+  const b = e.target.closest && e.target.closest(".btn, .hub");
+  if (!b || b.disabled) return;
+  const r = b.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2;
+  const sp = document.createElement("span");
+  sp.className = "ripple";
+  sp.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+  b.appendChild(sp);
+  setTimeout(() => sp.remove(), 700);
+});
+
 /* ---------- Início ---------- */
 (async function init() {
   S.ratings = (await idb.get("ratings")) || {};
@@ -985,7 +1451,7 @@ $("#b-clear").addEventListener("click", async () => { S.ratings = {}; await idb.
   if (cached && cached.items?.length) { S.items = cached.items; S.catTs = cached.ts; onCatalogReady(); }
   else { buildFilters($("#fe-root"), FE, onExploreFilter); buildFilters($("#fr-root"), FR, onRouletteFilter); renderExplore(); updateRoulettePool(true); renderList(); }
   if (!S.tmdbKey) { showTab("config"); setStatus("Bem-vindos! Cole a chave do TMDB (e a do OMDb, se quiser as notas) para começar."); }
-  else if (!S.items.length) { showTab("config"); loadCatalog(); }
+  else if (!S.items.length) { loadCatalog(); }
 })();
 </script>
 </body>
